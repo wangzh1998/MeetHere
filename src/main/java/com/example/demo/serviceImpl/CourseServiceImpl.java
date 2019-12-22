@@ -58,8 +58,8 @@ public class CourseServiceImpl implements CourseService {
 
     @Transactional
     public List<CourseAndGym> queryCourseByTeacher(String name) {
-        //User user = this.userDao.queryUserByUserName(name);
-        return this.courseDao.queryCourseByTeacher(name);
+        UserAndRole user = this.userDao.findUserAndRoleByUserName(name);
+        return this.courseDao.queryCourseByTeacher(user.getUserId());
     }
 
     @Transactional

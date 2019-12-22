@@ -14,16 +14,18 @@ public interface CourseDao extends JpaRepository<Course,Integer> {
 
     //List<Course> queryCourseByTeacher(int userId);
     //修改为CourseAndGym
+
    /* @Query(value = "select new com.example.demo.dao.vo.CourseAndGym" +
             "(c.id,c.name,c.weekday,c.startTime,c.endTime,) " +
             "from Teach t join Course c join Gym g " +
             "on t.user_id = ?1")*/
     //List<CourseAndGym> queryCourseByTeacher(int userId);
+
     @Query(value = "select new com.example.demo.vo.CourseAndGym" +
             "(c.courseId,c.courseName,c.weekday,c.startTime,c.endTime,g.gymId,g.gymName,c.teacherName) " +
             "from Teach t join Course c join Gym g " +
-            "on  c.teacherName = ?1")
-    List<CourseAndGym> queryCourseByTeacher(String teacher_ame);
+            "on  t.userId = ?1")
+    List<CourseAndGym> queryCourseByTeacher(int userId);
 
 
     //同上
