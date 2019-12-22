@@ -1,9 +1,7 @@
 package com.example.demo.dao;
 
 import com.example.demo.entity.Field;
-import com.example.demo.vo.FieldAndGym;
 import com.example.demo.vo.GymAndField;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
@@ -12,11 +10,11 @@ import java.util.List;
 @Repository
 
 public interface FieldDao extends JpaRepository<Field,Integer> {
-    @Query(value = "select new com.example.demo.vo.FieldAndGym" +
-            "(g.gymId,g.gymName,f.fieldId,f.fieldName) " +
+    @Query(value = "select new com.example.demo.vo.GymAndField" +
+            "(g.gymId,g.gymName,g.startTime,g.endTime,f.fieldId,f.fieldName) " +
             "from Field f join Gym g " +
             "on f.gymId = ?1 and f.fieldId = ?2")
-    FieldAndGym queryFieldById(int gid, int fid);
+    GymAndField queryFieldById(int gid, int fid);
 
 
     @Query(value="select gym_id,gym_name,start_time,end_time,field_id,field_name " +

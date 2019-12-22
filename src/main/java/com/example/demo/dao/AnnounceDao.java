@@ -8,10 +8,7 @@ import org.springframework.stereotype.Repository;
 import java.util.List;
 
 @Repository
-public interface AnnounceDao extends JpaRepository<Announce,Integer>,
-        JpaSpecificationExecutor<Announce> {
+public interface AnnounceDao extends JpaRepository<Announce,Integer>{
     //int addAnnounce(Announce announce);
-
     //List<Announce> queryAnnounce();
-
 }
