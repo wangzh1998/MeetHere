@@ -33,7 +33,7 @@ public interface CourseDao extends JpaRepository<Course,Integer> {
             "(c.courseId,c.courseName,c.weekday,c.startTime,c.endTime,g.gymId,g.gymName,c.teacherName) " +
             "from Take t join Course c join Gym g " +
             "on  t.userId = ?1")
-    List<CourseAndGym> queryCorseByStudent(int userId);
+    List<CourseAndGym> queryCourseByStudent(int userId);
 
 
     //int deleteCourseByTeacher(int course_id);
@@ -41,8 +41,7 @@ public interface CourseDao extends JpaRepository<Course,Integer> {
     //同上
     @Query(value = "select new com.example.demo.vo.CourseAndGym" +
             "(c.courseId,c.courseName,c.weekday,c.startTime,c.endTime,g.gymId,g.gymName,c.teacherName) " +
-            "from Course c join Gym g " +
-            "on c.gymId = g.gymId ")
+            "from Course c join Gym g ")
     List<CourseAndGym> queryAllCourse();
 
     @Query(value = "select max(course_id)+1 as course_id from course",nativeQuery = true)

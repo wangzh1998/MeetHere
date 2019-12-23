@@ -3,10 +3,10 @@ spring:
     driver-class-name: com.mysql.cj.jdbc.Driver
     url: jdbc:mysql://127.0.0.1:3306/project?chracterEncoding=utf-8
     username: root
-    password: v09809809800
+    password: password
   jpa:
     hibernate:
-      ddl-auto: create #先用创建模式，根据定义的实体类来建表
+      ddl-auto: update #先用创建模式，根据定义的实体类来建表
     show-sql: true
   thymeleaf: #thymeleaf静态资源配置
     prefix: classpath:/templates/

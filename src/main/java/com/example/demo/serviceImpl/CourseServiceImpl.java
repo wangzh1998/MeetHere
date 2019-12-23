@@ -63,9 +63,9 @@ public class CourseServiceImpl implements CourseService {
     }
 
     @Transactional
-    public List<CourseAndGym> queryCorseByStudent(String name) {
+    public List<CourseAndGym> queryCourseByStudent(String name) {
         UserAndRole user = this.userDao.findUserAndRoleByUserName(name);
-        return this.courseDao.queryCorseByStudent(user.getUserId());
+        return this.courseDao.queryCourseByStudent(user.getUserId());
     }
 
     /*

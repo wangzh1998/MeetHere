@@ -40,7 +40,7 @@ public class StudentController {
     public List<CourseAndGym> queryCourseByUId() {
         UserDetails userDetails = (UserDetails)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         String username = userDetails.getUsername();
-        List<CourseAndGym> courselist = this.courseService.queryCorseByStudent(username);
+        List<CourseAndGym> courselist = this.courseService.queryCourseByStudent(username);
         return courselist;
     }
 

@@ -12,7 +12,7 @@ public interface CourseService {
 
     List<CourseAndGym> queryCourseByTeacher(String name);
 
-    List<CourseAndGym> queryCorseByStudent(String name);
+    List<CourseAndGym> queryCourseByStudent(String name);
 
     void deleteCourseByTeacher(String username, int course_id) throws Exception;
 
