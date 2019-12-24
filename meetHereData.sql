@@ -21,17 +21,18 @@ insert into field(gym_id,field_id,field_name) values
 insert into course(course_id,course_name,weekday,start_time,end_time,gym_id,teacher_name) values
 	(1,"乒乓球","周一","10:00","11:30",1,"钟晖"),
 	(2,"篮球","周二","08:00","09:30",1,"阎健"),
-	(3,"排球","周四","13:00","14:30",2,"潘国平"),
+	(3,"排球","周二","08:00","09:30",2,"潘国平"),
 	(4,"排球","周五","10:00","11:30",2,"阎健");
 
 
 insert into teach(user_id,course_id) values
-	(1,1),(2,2),(3,3);
+	(1,1),(2,2),(3,3),(4,2);
 
 insert into reserve(reserve_id,user_id,gym_id,field_id,date,start_time,end_time) values
 	(1,3,2,1,"2019-12-23","08:00","12:00"),
 	(2,5,2,1,"2019-12-23","13:00","15:00"),
-	(3,7,1,1,"2019-12-24","09:00","11:00");
+	(3,7,1,1,"2019-12-24","09:30","11:00"),
+	(4,5,2,2,"2019-12-24","13:00","15:00");
 
 insert into take(user_id,course_id) values
 	(4,1),(5,2),(6,3);
@@ -42,8 +43,8 @@ insert into announce(anounce_id,content,time) values
 
 insert into user(user_id,name,password,role_id,user_name) values
 	(1,"钟晖","123456",3,"Mike"),
-	(2,"潘国平","456789",3,"Jack"),
-	(3,"阎健","123789",3,"Tom"),
+	(2,"阎健","456789",3,"Jack"),
+	(3,"潘国平","123789",3,"Tom"),
 	(4,"张诗晨","147258",2,"Amy"),
 	(5,"王昭辉","369258",2,"Lily"),
 	(6,"林梦思","147369",2,"Maria"),
