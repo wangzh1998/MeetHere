@@ -8,7 +8,6 @@ import org.springframework.stereotype.Repository;
 
 import java.util.List;
 @Repository
-
 public interface CourseDao extends JpaRepository<Course,Integer> {
     //int addCourse(Course course);
 
@@ -23,16 +22,20 @@ public interface CourseDao extends JpaRepository<Course,Integer> {
 
     @Query(value = "select new com.example.demo.vo.CourseAndGym" +
             "(c.courseId,c.courseName,c.weekday,c.startTime,c.endTime,g.gymId,g.gymName,c.teacherName) " +
-            "from Teach t join Course c join Gym g " +
-            "on  t.userId = ?1")
+            "from Teach t join Course c " +
+            "on t.userId = ?1 and t.courseId = c.courseId " +
+            "join Gym g " +
+            " on c.gymId = g.gymId")
     List<CourseAndGym> queryCourseByTeacher(int userId);
 
 
     //同上
     @Query(value = "select new com.example.demo.vo.CourseAndGym" +
             "(c.courseId,c.courseName,c.weekday,c.startTime,c.endTime,g.gymId,g.gymName,c.teacherName) " +
-            "from Take t join Course c join Gym g " +
-            "on  t.userId = ?1")
+            "from Take t join Course c  " +
+            "on t.userId = ?1 and t.courseId = c.courseId " +
+            "join Gym g " +
+            "on c.gymId = g.gymId ")
     List<CourseAndGym> queryCourseByStudent(int userId);
 
 
@@ -40,8 +43,9 @@ public interface CourseDao extends JpaRepository<Course,Integer> {
 
     //同上
     @Query(value = "select new com.example.demo.vo.CourseAndGym" +
-            "(c.courseId,c.courseName,c.weekday,c.startTime,c.endTime,g.gymId,g.gymName,c.teacherName) " +
-            "from Course c join Gym g ")
+            "(c.courseId,c.courseName,c.weekday,c.startTime,c.endTime,c.gymId,g.gymName,c.teacherName) " +
+            "from Course c join Gym g " +
+            "on c.gymId = g.gymId ")
     List<CourseAndGym> queryAllCourse();
 
     @Query(value = "select max(course_id)+1 as course_id from course",nativeQuery = true)

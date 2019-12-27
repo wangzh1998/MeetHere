@@ -11,6 +11,11 @@ public class FieldCompositeId implements Serializable {
     public FieldCompositeId() {
     }
 
+    public FieldCompositeId(Integer fieldId, Integer gymId) {
+        this.fieldId = fieldId;
+        this.gymId = gymId;
+    }
+
     @Override
     public int hashCode() {
         int result = 1;

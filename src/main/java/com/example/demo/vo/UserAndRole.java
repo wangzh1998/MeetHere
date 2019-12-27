@@ -47,7 +47,7 @@ public class UserAndRole implements UserDetails {
     public Collection<? extends GrantedAuthority> getAuthorities() {
         List<GrantedAuthority> auths = new ArrayList();
         if (this.roleId == -1 || this.roleName==null) {//this.role == null
-            System.out.println("role error");
+            System.out.println("UserAndRole:role error");
         } else {
             auths.add(new SimpleGrantedAuthority(this.roleName));
         }

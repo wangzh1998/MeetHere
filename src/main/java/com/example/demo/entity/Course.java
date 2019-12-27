@@ -9,7 +9,7 @@ import javax.persistence.Id;
 @Entity
 public class Course {
     @Id
-    @GeneratedValue
+    //@GeneratedValue
     private int courseId;
 
     private String courseName;
@@ -21,6 +21,25 @@ public class Course {
     private String teacherName;
 
     public Course() {
+    }
+
+    public Course(int courseId, String courseName, String weekday, String startTime, String endTime, int gymId, String teacherName) {
+        this.courseId = courseId;
+        this.courseName = courseName;
+        this.weekday = weekday;
+        this.startTime = startTime;
+        this.endTime = endTime;
+        this.gymId = gymId;
+        this.teacherName = teacherName;
+    }
+
+    public Course(String courseName, String weekday, String startTime, String endTime, int gymId, String teacherName) {
+        this.courseName = courseName;
+        this.weekday = weekday;
+        this.startTime = startTime;
+        this.endTime = endTime;
+        this.gymId = gymId;
+        this.teacherName = teacherName;
     }
 
     public int getCourseId() {

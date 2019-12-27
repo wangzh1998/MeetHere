@@ -20,6 +20,7 @@ public interface UserDao extends JpaRepository<User,Integer> {
     @Query(value = "select new com.example.demo.vo.UserAndRole " +
             "(u.userId,u.userName,u.password,u.name,u.roleId,r.roleName) " +
             "from User u join Role r " +
-            "on u.userName = ?1")
+            "on u.userName = ?1 " +
+            "and u.roleId = r.roleId")
     UserAndRole findUserAndRoleByUserName(String username);
 }

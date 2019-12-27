@@ -9,7 +9,7 @@ import javax.persistence.Id;
 @Entity
 public class Reserve {
     @Id
-    @GeneratedValue
+    //@GeneratedValue
     private int reserveId;
     private int userId;//add
     private int gymId;
@@ -22,6 +22,15 @@ public class Reserve {
     //private String userName;
 
     public Reserve() {
+    }
+
+    public Reserve(int userId, int gymId, int fieldId, String date, String startTime, String endTime) {
+        this.userId = userId;
+        this.gymId = gymId;
+        this.fieldId = fieldId;
+        this.date = date;
+        this.startTime = startTime;
+        this.endTime = endTime;
     }
 
     public int getReserveId() {

@@ -16,15 +16,24 @@ public interface ReserveDao extends JpaRepository<Reserve,Integer> {
 
     @Query(value = "select new com.example.demo.vo.ReserveAndUserAndGymAndField" +
             "(r.reserveId,r.userId,u.userName,r.gymId,g.gymName,r.fieldId,f.fieldName,r.date,r.startTime,r.endTime) " +
-            "from Reserve r join User u join Gym g join Field f " +
-            "on u.userName = ?1 ")
+            "from Reserve r join User u  " +
+            "on u.userName = ?1 and r.userId = u.userId " +
+            "join Gym g " +
+            "on r.gymId = g.gymId " +
+            "join Field f " +
+            "on g.gymId = f.gymId and r.fieldId = f.fieldId ")
     List<ReserveAndUserAndGymAndField> queryReserveInfoByUser(String name);
     //List<Reserve> findByUserName(String name);
 
-    //List<Reserve> queryReserveByUser(int uid);
+
     @Query(value = "select new com.example.demo.vo.ReserveAndUserAndGymAndField" +
             "(r.reserveId,r.userId,u.userName,r.gymId,g.gymName,r.fieldId,f.fieldName,r.date,r.startTime,r.endTime) " +
-            "from Reserve r join User u join Gym g join Field f " +
-            "on u.id = ?1")
+            "from Reserve r join User u  " +
+            "on u.userId = ?1 and r.userId = u.userId " +
+            "join Gym g " +
+            "on r.gymId = g.gymId " +
+            "join Field f " +
+            "on g.gymId = f.gymId and r.fieldId = f.fieldId ")
     List<ReserveAndUserAndGymAndField> queryReserveByUser(Integer uid);
+    //List<Reserve> queryReserveByUser(int uid);
 }

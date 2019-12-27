@@ -22,7 +22,11 @@ public class Field implements Serializable {
     public Field() {
     }
 
-
+    public Field(int fieldId, int gymId, String fieldName) {
+        this.fieldId = fieldId;
+        this.gymId = gymId;
+        this.fieldName = fieldName;
+    }
 
     public int getGymId() {
         return this.gymId;

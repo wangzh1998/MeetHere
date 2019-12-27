@@ -8,11 +8,15 @@ import java.io.Serializable;
 @Entity
 public class Role implements Serializable {
     @Id
-    @GeneratedValue
+    //@GeneratedValue
     private int roleId;
     private String roleName;
 
     public Role() {
+    }
+
+    public Role(String roleName) {
+        this.roleName = roleName;
     }
 
     public void setRoleId(int roleId) {

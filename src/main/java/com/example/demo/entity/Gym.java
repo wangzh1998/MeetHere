@@ -9,7 +9,7 @@ import javax.persistence.Id;
 @Entity
 public class Gym {
     @Id
-    @GeneratedValue
+    //@GeneratedValue
     private int gymId;
     private String gymName;
     private String startTime;
@@ -17,6 +17,13 @@ public class Gym {
 
 
     public Gym() {
+    }
+
+
+    public Gym(String gymName, String startTime, String endTime) {
+        this.gymName = gymName;
+        this.startTime = startTime;
+        this.endTime = endTime;
     }
 
     public String getGymName() {

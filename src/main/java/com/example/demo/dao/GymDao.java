@@ -16,16 +16,29 @@ import java.util.List;
 public interface GymDao extends JpaRepository<Gym,Integer> {
     //Gym queryGymById(int gid);
 
-    @Query(value = "select *\nfrom gym\n" +
-            "where gym_id not in " +
-            "(\nselect gym_id\n" +
+    /*@Query(value = "select gym.gym_id as gymId,gym.gym_name as gymName,gym.start_time as startTime,gym.end_time as endTime\n" +
+            "from gym\n" +
+            "where gym_id \n" +
+            "not in \n" +
+            "(select gym_id \n" +
             "from course\n" +
-            "where course.weekday = ?1 and course.endtime >= ?2 and course.starttime <= ?3\n" +
+            "where course.weekday = :weekday and course.end_time > :startTime and course.start_time < :endTime\n" +
             "union\n" +
             "select gym_id\n" +
             "from reserve r\n" +
-            "where r.endtime >= ?2 and r.starttime <= ?3 and r.weekday = ?1)" +
-            "and start_time <= ?2 and end_time >= ?3",
-    nativeQuery = true)
+            "where r.weekday = :weekday and r.end_time > :startTime and r.start_time < endTime)",
+    nativeQuery = true)*/
+    /*
+    可用场馆的查询只排除被课程占据的，如果是部分场地被预约，则不考虑
+    * */
+    @Query(value = "select gym.gym_id as gymId,gym.gym_name as gymName,gym.start_time as startTime,gym.end_time as endTime\n" +
+            "from gym\n" +
+            "where start_time <= :startTime and end_time >= :endTime " +
+            "and  gym_id \n" +
+            "not in \n" +
+            "(select gym_id \n" +
+            "from course\n" +
+            "where course.weekday = :weekday and course.end_time > :startTime and course.start_time < :endTime)\n",
+            nativeQuery = true)
     List<Gym> queryAvailableGym(String weekday, String startTime, String endTime);
 }

@@ -17,6 +17,8 @@ public class Take implements Serializable {
     public Take() {
     }
 
+
+
     public Take(int userId, int courseId) {
         this.userId = userId;
         this.courseId = courseId;

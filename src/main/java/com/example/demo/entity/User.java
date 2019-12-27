@@ -15,7 +15,7 @@ import javax.persistence.Id;
 @Entity
 public class User {
     @Id
-    @GeneratedValue
+    //@GeneratedValue
     private int userId;
     private String userName;
     private String password;
@@ -26,6 +26,8 @@ public class User {
 
     public User() {
     }
+
+
 
     public String getPassword() {
         return this.password;
