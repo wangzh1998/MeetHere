@@ -39,8 +39,8 @@ class GymServiceImplTest {
     @Test
     void queryAvailableGym() {
 
-        Gym r1 = new Gym(1,"大学生活动中心","7:00","9:00");
-        Gym r2 = new Gym(2,"中北体育馆","10:00","12:00");
+        Gym r1 = new Gym("大学生活动中心","7:00","9:00");
+        Gym r2 = new Gym("中北体育馆","10:00","12:00");
         List<Gym> gymList = new ArrayList<>();
         gymList.add(r1);
         gymList.add(r2);
@@ -53,7 +53,6 @@ class GymServiceImplTest {
                 ()->assertEquals("7:00",resultList.get(0).getStartTime()),
                 ()->assertEquals("9:00",resultList.get(0).getEndTime()),
                 ()->assertEquals("大学生活动中心",resultList.get(0).getGymName()),
-                ()->assertEquals(1,resultList.get(0).getGymId()),
                 ()->assertEquals("中北体育馆",resultList.get(1).getGymName())
         );
     }
