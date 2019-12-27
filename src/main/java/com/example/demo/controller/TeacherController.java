@@ -40,8 +40,7 @@ public class TeacherController {
                             @RequestParam(value = "weekday",required = true) String weekday,
                             @RequestParam(value = "starttime",required = true) String startTime,
                             @RequestParam(value = "endtime",required = true) String endTime,
-                            @RequestParam(value = "gymid",required = true) int gymId,
-                            @RequestParam(value = "gymname",required = false) String gymName
+                            @RequestParam(value = "gymid",required = true) int gymId
                             ) {
         UserDetails userDetails = (UserDetails)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         String username = userDetails.getUsername();
