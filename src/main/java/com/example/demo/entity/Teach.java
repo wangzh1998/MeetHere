@@ -2,6 +2,7 @@ package com.example.demo.entity;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.util.Objects;
 
 //new entity class
 @Entity
@@ -36,5 +37,19 @@ public class Teach implements Serializable {
 
     public int getCourseId() {
         return courseId;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof Teach)) return false;
+        Teach teach = (Teach) o;
+        return getUserId() == teach.getUserId() &&
+                getCourseId() == teach.getCourseId();
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(getUserId(), getCourseId());
     }
 }

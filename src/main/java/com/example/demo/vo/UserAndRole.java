@@ -31,6 +31,21 @@ public class UserAndRole implements UserDetails {
         this.roleName = roleName;
     }
 
+    @Override
+    public String toString() {
+        return "UserAndRole{" +
+                "userId=" + userId +
+                ", userName='" + userName + '\'' +
+                ", password='" + password + '\'' +
+                ", name='" + name + '\'' +
+                ", roleId=" + roleId +
+                ", roleName='" + roleName + '\'' +
+                '}';
+    }
+
+    @Override
+
+
     public String getPassword() {
         return this.password;
     }
@@ -46,7 +61,7 @@ public class UserAndRole implements UserDetails {
 
     public Collection<? extends GrantedAuthority> getAuthorities() {
         List<GrantedAuthority> auths = new ArrayList();
-        if (this.roleId == -1 || this.roleName==null) {//this.role == null
+        if (this.roleId == -1 || this.roleName==null||this.roleName.isEmpty()) {//this.role == null
             System.out.println("UserAndRole:role error");
         } else {
             auths.add(new SimpleGrantedAuthority(this.roleName));
@@ -112,4 +127,5 @@ public class UserAndRole implements UserDetails {
     public String getRoleName() {
         return roleName;
     }
+
 }

@@ -4,6 +4,7 @@ import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.IdClass;
 import java.io.Serializable;
+import java.util.Objects;
 
 //new entity class
 @Entity
@@ -40,4 +41,17 @@ public class Take implements Serializable {
         this.courseId = courseId;
     }
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof Take)) return false;
+        Take take = (Take) o;
+        return getUserId() == take.getUserId() &&
+                getCourseId() == take.getCourseId();
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(getUserId(), getCourseId());
+    }
 }
