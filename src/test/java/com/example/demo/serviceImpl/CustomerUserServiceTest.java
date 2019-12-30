@@ -54,7 +54,7 @@ class CustomerUserServiceTest {
                 ()->assertEquals("123456",result.getPassword())
         );
     }
-
+/**
     @Rule
     public ExpectedException thrown= ExpectedException.none();
 
@@ -67,7 +67,7 @@ class CustomerUserServiceTest {
         UserDetails result = customerUserService.loadUserByUsername(anyString());
         verify(userDao,times(1)).findUserAndRoleByUserName(any());
     }
-
+*/
     @Test
     void loadUserByUsername_not_found_test2() {
         when(userDao.findUserAndRoleByUserName(any())).thenReturn(null);

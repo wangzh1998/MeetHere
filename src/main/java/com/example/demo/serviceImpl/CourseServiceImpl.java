@@ -77,7 +77,7 @@ public class CourseServiceImpl implements CourseService {
         if (user == null) {
             throw new Exception("用户不存在");
         } else {
-            int userId = this.teachDao.findUserIDByCourseId(course_id);
+            int userId = this.teachDao.findUserIdByCourseId(course_id);
             if (userId != user.getUserId()) {
                 throw new Exception("没有删除权限");
             } else {

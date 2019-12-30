@@ -114,7 +114,7 @@ public class UserController {
     }
 
     @RequestMapping(
-            value = {"query/user"},
+            value = {"/query/user"},
             method = {RequestMethod.GET}
     )
     public UserAndRole queryUser() {
