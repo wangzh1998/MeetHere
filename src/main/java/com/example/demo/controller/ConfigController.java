@@ -2,10 +2,15 @@ package com.example.demo.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+
+import java.util.Collection;
 
 @RestController
 @RequestMapping({"/login"})
@@ -21,9 +26,11 @@ public class ConfigController {
         return new BCryptPasswordEncoder();
     }
 
+    //登陆成功：将reutrn 0 改为返回角色的认证信息
     @RequestMapping({"/return0"})
-    public int return0() {
-        return 0;
+    public Collection<? extends GrantedAuthority> return0() {
+        UserDetails userDetails = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        return userDetails.getAuthorities();
     }
 
     @RequestMapping({"/return1"})
