@@ -97,6 +97,7 @@ public class CourseServiceImpl implements CourseService {
         }
     }
 
+    @Transactional
     public void deleteCourseByStudent(String name, int course_id) throws Exception {
         UserAndRole user = this.userDao.findUserAndRoleByUserName(name);
         if (user == null) {
