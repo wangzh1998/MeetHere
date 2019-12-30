@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en" class="no-js">
+	<head>
+		<meta charset="UTF-8" />
+		<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"> 
+		<meta name="viewport" content="width=device-width, initial-scale=1.0"> 
+		<title>Meet Here 主页</title>
+		<meta name="description" content="A sidebar menu as seen on the Google Nexus 7 website" />
+		<meta name="keywords" content="google nexus 7 menu, css transitions, sidebar, side menu, slide out menu" />
+		<meta name="author" content="Codrops" />
+		<link rel="shortcut icon" href="../favicon.ico">
+		<link rel="stylesheet" type="text/css" href="../css/normalize.css" />
+		<link rel="stylesheet" type="text/css" href="../css/demo.css" />
+		<link rel="stylesheet" type="text/css" href="../css/component.css" />
+		<script src="../js/modernizr.custom.js"></script>
+	</head>
+	<body>
+		<div class="container">
+			<ul id="gn-menu" class="gn-menu-main">
+				<li class="gn-trigger">
+					<a class="gn-icon gn-icon-menu"><span>Menu</span></a>
+					<nav class="gn-menu-wrapper">
+						<div class="gn-scroller">
+							<ul class="gn-menu">
+								
+								<li>
+									<a class="gn-icon gn-icon-article" onclick="toMyCourse()">我的课程</a>
+								</li>
+								<li><a class="gn-icon gn-icon-cog" onclick="toQueryCourse()">课程管理</a></li>
+								<li><a class="gn-icon gn-icon-article" onclick="toMyReserve()">我的预约</a></li>
+								<li>
+									<a class="gn-icon gn-icon-cog" onclick="toReserveField()">预约场馆</a>
+									
+								</li>
+								<li>
+									<a class="gn-icon gn-icon-article" onclick="toAnnounce()()">通知公告</a>
+								</li>
+							</ul>
+						</div><!-- /gn-scroller -->
+					</nav>
+				</li>
+				<li><a class="codrops-icon codrops-icon-drop" onclick="toMainPage()"><span>Meet Here</span></a></li>
+				<li><a class="codrops-icon codrops-icon-drop" href="#"><span>体育场馆预约系统</span></a></li>
+			</ul>
+			
+			<header>
+				<h1 id="h1" >Reserve Field</h1>
+			</header> 
+			
+		</div><!-- /container -->
+		<script src="../js/classie.js"></script>
+		<script src="../js/gnmenu.js"></script>
+		<script>
+			new gnMenu( document.getElementById( 'gn-menu' ) );
+			function toMainPage(){
+				window.location.href='main.html';
+			}
+			function toMyCourse(){
+				window.location.href='myCourse.html';
+			}
+			function toQueryCourse(){
+				window.location.href='queryCourse.html';
+			}
+			function toMyReserve(){
+				window.location.href='myReserve.html';
+			}
+			function toReserveField(){
+				window.location.href='reserveField.html';
+			}
+		</script>
+	</body>
+</html>
