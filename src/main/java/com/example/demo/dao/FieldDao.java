@@ -38,7 +38,8 @@ public interface FieldDao extends JpaRepository<GymAndField, FieldCompositeId>
             "     not in ( select gym_id\n" +
             "     \t\t  from course\n" +
             "              where course.weekday = ? and course.endtime >= ? and course.starttime <= ?)",nativeQuery = true)*/
-    @Query(value = "select gym.gym_id as gymId,gym.gym_name as gymName,gym.start_time as startTime,gym.end_time as endTime,field.field_id as fieldId,field.field_name as fieldName " +
+    //删除别名
+    @Query(value = "select gym.gym_id,gym.gym_name,gym.start_time,gym.end_time,field.field_id,field.field_name " +
             "from gym natural join field \n" +
             "where gym.start_time <= :startTime and gym.end_time >= :endTime \n" +
             "and (gym_id, field_id) not in \n" +
