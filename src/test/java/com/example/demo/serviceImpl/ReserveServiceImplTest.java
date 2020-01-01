@@ -17,77 +17,87 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.boot.test.autoconfigure.orm.jpa.TestEntityManager;
+import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import java.util.ArrayList;
 import java.util.List;
 
+import static junit.framework.TestCase.fail;
+import static org.hamcrest.CoreMatchers.containsString;
+import static org.junit.Assert.assertThat;
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.Mockito.*;
 import static org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase.Replace.NONE;
 
+@SpringBootTest
 @RunWith(SpringRunner.class)
-@DataJpaTest
-@DirtiesContext
-@AutoConfigureTestDatabase(replace = NONE)
 class ReserveServiceImplTest {
 
-    @Autowired
-    private TestEntityManager entityManager;
-    @Autowired
-    private ReserveDao reserveDao;
-
     @Mock
-    ReserveDao reserveDao2;
+    ReserveDao reserveDao;
+    @Mock
+    UserDao userDao;
     @InjectMocks
     ReserveServiceImpl reserveService;
 
-    private Reserve reserve1;
+    private  ReserveAndUserAndGymAndField reserveInfo;
 
     @BeforeEach
     public void init() {
-        reserve1 = new Reserve();
-        reserve1.setUserId(1);
-        reserve1.setGymId(1);
-        reserve1.setFieldId(1);
-        reserve1.setDate("2019-12-25");
-        reserve1.setStartTime("9:00");
-        reserve1.setEndTime("11:00");
-    }
-
-    @AfterEach
-    public void cleanup() {
-        this.entityManager.clear();
+        reserveInfo = new ReserveAndUserAndGymAndField();
+        reserveInfo.setUserId(3);
+        reserveInfo.setUserName("张诗晨");
+        reserveInfo.setDate("2020-1-1");
+        reserveInfo.setFieldId(2);
+        reserveInfo.setFieldName("2号场地");
+        reserveInfo.setGymId(1);
+        reserveInfo.setGymName("中北大学生活动中心羽毛球馆 ");
+        reserveInfo.setStartTime("13:00");
+        reserveInfo.setEndTime("15:00");
     }
 
     @Test
     void addReserve_save_test() {
-        this.entityManager.persist(reserve1);
-        Reserve result = reserveDao.save(reserve1);
-
-        assertEquals(4, result.getReserveId());
-        assertEquals(1, result.getUserId());
-        assertEquals("2019-12-25",result.getDate());
+        UserAndRole user = new UserAndRole();
+        user.setName("张诗晨");
+        user.setPassword("123456");
+        user.setUserName("张诗晨");
+        user.setRoleName("ROLE_STUDENT");
+        user.setRoleId(3);
+        user.setUserId(5);
+        when(userDao.findUserAndRoleByUserName(reserveInfo.getUserName())).thenReturn(user);
+        when(reserveDao.save(any())).thenReturn(null);
+        try{
+            reserveService.addReserve(reserveInfo);
+            fail("expected Exception for 数据库异常");
+        } catch (Exception ex) {
+            assertThat(ex.getMessage(),containsString("数据库异常"));
+        }
     }
 
 
     @Test
     void deleteReserve_delete_test() {
-        this.entityManager.persist(reserve1);
-        Reserve result = reserveDao.save(reserve1);
-        reserveDao.deleteById(6);
-        List<Reserve> n = reserveDao.findAll();
-        assertEquals(0,n.size());
     }
 
     @Test
-    void queryReserveByUser() {
+    void queryReserveByUser1() {
 
         List<ReserveAndUserAndGymAndField> reserveAndUserAndGymAndField = new ArrayList<>();
-        when(reserveDao2.queryReserveInfoByUser(anyString())).thenReturn(reserveAndUserAndGymAndField);
+        when(reserveDao.queryReserveInfoByUser(anyString())).thenReturn(reserveAndUserAndGymAndField);
         List<ReserveAndUserAndGymAndField> result = reserveService.queryReserveByUser(anyString());
-        verify(reserveDao2,times(1)).queryReserveInfoByUser(anyString());
+        verify(reserveDao,times(1)).queryReserveInfoByUser(anyString());
+    }
+
+    @Test
+    void queryReserveByUser2() {
+
+        List<ReserveAndUserAndGymAndField> reserveAndUserAndGymAndField = new ArrayList<>();
+        when(reserveDao.queryReserveByUser(anyInt())).thenReturn(reserveAndUserAndGymAndField);
+        List<ReserveAndUserAndGymAndField> result = reserveService.queryReserveByUser(anyInt());
+        verify(reserveDao,times(1)).queryReserveByUser(anyInt());
     }
 }
