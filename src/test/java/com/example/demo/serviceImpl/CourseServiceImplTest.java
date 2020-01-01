@@ -173,8 +173,67 @@ class CourseServiceImplTest {
         verify(courseDao,times(1)).queryCourseByStudent(user.getUserId());
     }
 
+    //路径2
     @Test
-    void deleteCourseByTeacher() {
+    void deleteCourseByTeacher_id_not_equal() {
+        UserAndRole user = new UserAndRole();
+        user.setName("钟晖");
+        user.setPassword("123456");
+        user.setUserName("钟晖");
+        user.setRoleName("ROLE_TEACHER");
+        user.setRoleId(2);
+        user.setUserId(1);
+        when(userDao.findUserAndRoleByUserName("钟晖")).thenReturn(user);
+        when(teachDao.findUserIdByCourseId(2)).thenReturn(2);
+        try {
+            courseService.deleteCourseByTeacher("钟晖",2);
+            fail("expected Exception for 没有删除权限");
+        } catch (Exception ex) {
+            assertThat(ex.getMessage(),containsString("没有删除权限"));
+        }
+    }
+
+    //路径3
+    @Test
+    void deleteCourseByTeacher_id_equal_take_error() {
+        UserAndRole user = new UserAndRole();
+        user.setName("钟晖");
+        user.setPassword("123456");
+        user.setUserName("钟晖");
+        user.setRoleName("ROLE_TEACHER");
+        user.setRoleId(2);
+        user.setUserId(1);
+        when(userDao.findUserAndRoleByUserName("钟晖")).thenReturn(user);
+        when(teachDao.findUserIdByCourseId(2)).thenReturn(1);
+        when(takeDao.deleteByCourseId(2)).thenReturn(-1);
+        try {
+            courseService.deleteCourseByTeacher("钟晖",2);
+            fail("expected Exception for 数据库异常");
+        } catch (Exception ex) {
+            assertThat(ex.getMessage(),containsString("数据库异常"));
+        }
+    }
+
+    //路径4
+    @Test
+    void deleteCourseByTeacher_id_equal_take_right_teach_error() {
+        UserAndRole user = new UserAndRole();
+        user.setName("钟晖");
+        user.setPassword("123456");
+        user.setUserName("钟晖");
+        user.setRoleName("ROLE_TEACHER");
+        user.setRoleId(2);
+        user.setUserId(1);
+        when(userDao.findUserAndRoleByUserName("钟晖")).thenReturn(user);
+        when(teachDao.findUserIdByCourseId(2)).thenReturn(1);
+        when(takeDao.deleteByCourseId(2)).thenReturn(0);
+        when(teachDao.deleteByCourseId(2)).thenReturn(0);
+        try {
+            courseService.deleteCourseByTeacher("钟晖",2);
+            fail("expected Exception for 数据库异常");
+        } catch (Exception ex) {
+            assertThat(ex.getMessage(),containsString("数据库异常"));
+        }
     }
 
     @Test

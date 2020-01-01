@@ -31,8 +31,6 @@ import static org.mockito.internal.verification.VerificationModeFactory.times;
 @RunWith(SpringRunner.class)
 class AnnounceServiceImplTest {
 
-    @Autowired
-    private AnnounceDao announceDao1;
     @Mock
     private AnnounceDao announceDao;
     @InjectMocks
@@ -48,11 +46,10 @@ class AnnounceServiceImplTest {
     }
 
     @Test
-    void addAnnounce_not_null_test() {
+    void addAnnounce_not_null_test() throws Exception {
         Announce a1 = new Announce("2019-12-23 8:00","announce_1");
-        Announce t = announceDao1.save(a1);
-        Assert.assertEquals(a1.getTime(),t.getTime());
-        Assert.assertEquals(a1.getContent(), t.getContent());
+        announceService.addAnnounce(a1);
+        verify(announceDao,times(1)).save(a1);
     }
 
     //此测试方法报错
