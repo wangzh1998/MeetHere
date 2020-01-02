@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="en" class="no-js">
+	<head>
+		<meta charset="UTF-8" />
+		<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"> 
+		<meta name="viewport" content="width=device-width, initial-scale=1.0"> 
+		<title>学生—我的课程</title>
+		<meta name="description" content="A sidebar menu as seen on the Google Nexus 7 website" />
+		<meta name="keywords" content="google nexus 7 menu, css transitions, sidebar, side menu, slide out menu" />
+		<meta name="author" content="Codrops" />
+		<link rel="shortcut icon" href="../favicon.ico">
+		
+		<link rel="stylesheet" type="text/css" href="css/button.css" />
+		<link rel="stylesheet" type="text/css" href="css/normalize.css" />
+		<link rel="stylesheet" type="text/css" href="css/demo.css" />
+		<link rel="stylesheet" type="text/css" href="css/component.css" />
+		<script type="text/javascript" src="js/jquery.js"></script>
+		<script type="text/javascript" src="js/jquery.form.js"></script>
+		<script>
+			// $(function ())是文档document加载完自动调用的函数
+			$(function () {
+			    /*
+			     获取form元素，调用其ajaxForm(...)方法
+			     内部的function(data)的data就是后台返回的数据
+			    */
+			    $("#form1").ajaxForm(function (data) {
+						
+						var result = null;
+						result = JSON.stringify(data);
+						
+						var jsonlist = null;
+						jsonlist = JSON.parse(result);
+						var str = "";
+						$("#table-7 tr:not(:first)").empty();
+						for(var i = 0; i < jsonlist.length;i++){
+							
+							str += "<tr><td>"+jsonlist[i].courseId+"</td><td>"+jsonlist[i].courseName +
+							"</td><td>"+jsonlist[i].weekday+"</td><td>"+jsonlist[i].startTime +
+							"</td><td>"+jsonlist[i].endTime+"</td><td>"+jsonlist[i].gymName+jsonlist[i].gymId+
+							"</td><td>"+jsonlist[i].teacherName+"</td></tr>";
+							$("#table-7").append(str);
+						
+						}
+						
+			        }
+			    );
+				
+				$("#form2").ajaxForm(function (data) {
+						
+						var result = null;
+						result = JSON.stringify(data);
+						
+						var jsonlist = null;
+						jsonlist = JSON.parse(result);
+						var str = "";
+						$("#table-7 tr:not(:first)").empty();
+						for(var i = 0; i < jsonlist.length;i++){
+							
+							str += "<tr><td>"+jsonlist[i].courseId+"</td><td>"+jsonlist[i].courseName +
+							"</td><td>"+jsonlist[i].weekday+"</td><td>"+jsonlist[i].startTime +
+							"</td><td>"+jsonlist[i].endTime+"</td><td>"+jsonlist[i].gymName+jsonlist[i].gymId+
+							"</td><td>"+jsonlist[i].teacherName+"</td></tr>";
+							$("#table-7").append(str);
+						
+						}
+						
+				    }
+				);
+			});
+		
+		</script>
+	</head>
+	<body>
+		<div class="container">
+			<ul id="gn-menu" class="gn-menu-main">
+				<li class="gn-trigger">
+					<a class="gn-icon gn-icon-menu"><span>Menu</span></a>
+					<nav class="gn-menu-wrapper">
+						<div class="gn-scroller">
+							<ul class="gn-menu">
+								
+								<li>
+									<a class="gn-icon gn-icon-article" onclick="toMyCourse()">我的课程</a>
+								</li>
+								<li><a class="gn-icon gn-icon-cog" onclick="toQueryCourse()">课程管理</a></li>
+								
+								<li>
+									<a class="gn-icon gn-icon-cog" onclick="toReserveField()">预约场馆</a>
+								</li>
+								<li>
+									<a class="gn-icon gn-icon-article" onclick="toAnnounce()()">通知公告</a>
+								</li>
+							</ul>
+						</div><!-- /gn-scroller -->
+					</nav>
+				</li>
+				<li><a class="codrops-icon codrops-icon-drop" onclick="toMainPage()"><span>Meet Here</span></a></li>
+				<li><a class="codrops-icon codrops-icon-drop" href="#"><span>体育场馆预约系统</span></a></li>
+			</ul>
+			
+			<header>
+				<h1 id="h1" style="margin-left: 40%;" >My Course</h1>
+				
+				 <div style="background-color: gainsboro;width: 100%;height: 50px; ">
+				 
+				 <div style="display:inline-block;margin-left: 42%;"><form id="form1" action="/student/query/mycourse" enctype="multipart/form-data" method="get">
+				                <td><input type="submit" class="button gray" name="submit" value="我的课程" style="margin-top: 3px;"/></td>
+				</form></div>
+				 
+				 <div style="display:inline-block;margin-left:10px;"><form id="form2" action="/student/query/allcourse" enctype="multipart/form-data" method="get">
+				                <td><input type="submit" class="button black" name="submit" value="全部课程" style="margin-top: 3px;"/></td>
+				</form></div>
+				 
+				 </div>
+
+			</header> 
+			
+			
+			<table id="table-7" style="background-color:white;margin-left: 350px;">
+			<thead>
+			<th>课程编号</th>
+			<th>课程名称</th>
+			<th>上课时间</th>
+			<th>开始时间</th>
+			<th>结束时间</th>
+			<th>上课地点</th>
+			<th>教师姓名</th>
+			
+			</thead>
+			<tbody>
+			
+			</tbody>
+			</table>
+			
+		</div><!-- /container -->
+		<script src="js/classie.js"></script>
+		<script src="js/gnmenu.js"></script>
+		<script>
+			new gnMenu( document.getElementById( 'gn-menu' ) );
+			function toMainPage(){
+				window.location.href='student_main.html';
+			}
+			function toMyCourse(){
+				window.location.href='student_myCourse.html';
+			}
+			function toQueryCourse(){
+				window.location.href='student_queryCourse.html';
+			}
+			function toReserveField(){
+				window.location.href='student_myReserve.html';
+			}
+			function toAnnounce(){
+				window.location.href='student_announce.html';
+			}
+		</script>
+		
+	</body>
+</html>

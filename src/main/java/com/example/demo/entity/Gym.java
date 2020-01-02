@@ -20,6 +20,13 @@ public class Gym {
     }
 
 
+ /*   public Gym(int gymId, String gymName, String startTime, String endTime) {
+        this.gymId = gymId;
+        this.gymName = gymName;
+        this.startTime = startTime;
+        this.endTime = endTime;
+    }*/
+
     public Gym(String gymName, String startTime, String endTime) {
         this.gymName = gymName;
         this.startTime = startTime;

@@ -1,10 +1,16 @@
 package com.example.demo.controller;
 
+import com.example.demo.entity.Announce;
 import com.example.demo.entity.Course;
 import com.example.demo.service.CourseService;
+import com.example.demo.service.AnnounceService;
+import com.example.demo.service.FieldService;
+import com.example.demo.service.ReserveService;
+import com.example.demo.service.UserService;
 import java.util.List;
 
 import com.example.demo.vo.CourseAndGym;
+import com.example.demo.vo.ReserveAndUserAndGymAndField;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.EnableAspectJAutoProxy;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -20,6 +26,10 @@ import org.springframework.web.bind.annotation.RestController;
 public class StudentController {
     @Autowired
     CourseService courseService;
+    @Autowired
+    AnnounceService announceService;
+    @Autowired
+    ReserveService reserveService;
 
     public StudentController() {
     }
@@ -54,6 +64,7 @@ public class StudentController {
 
         try {
             this.courseService.takeCourse(username, courseid);
+            System.out.println("加入课程成功");
             return "加入课程成功";
         } catch (Exception var5) {
             return var5.getMessage();
@@ -74,5 +85,61 @@ public class StudentController {
         } catch (Exception var5) {
             return var5.getMessage();
         }
+    }
+
+    @RequestMapping(
+            value = {"/add/reserve"},
+            method = {RequestMethod.POST}
+    )
+    public String addReserve(@RequestParam(value = "gymname",required = false) String gymName,
+                             @RequestParam(value = "gymid",required = true) int gymId,
+                             @RequestParam(value = "fieldname",required = false) String fieldName,
+                             @RequestParam(value = "fieldid",required = true) int fieldId,
+                             @RequestParam(value = "date",required = true) String date,
+                             @RequestParam(value = "starttime",required = true) String startTime,
+                             @RequestParam(value = "endtime",required = true) String endTime) {
+        UserDetails userDetails = (UserDetails)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        String username = userDetails.getUsername();
+        // Reserve reserve = new Reserve();
+        ReserveAndUserAndGymAndField reserve = new ReserveAndUserAndGymAndField();
+        reserve.setGymName(gymName);
+        reserve.setGymId(gymId);
+        reserve.setFieldName(fieldName);
+        reserve.setFieldId(fieldId);
+        reserve.setDate(date);
+        reserve.setStartTime(startTime);
+        reserve.setEndTime(endTime);
+        reserve.setUserName(username);
+
+        try {
+            this.reserveService.addReserve(reserve);
+            return "预约成功";
+        } catch (Exception var12) {
+            return var12.getMessage();
+        }
+    }
+
+    @RequestMapping(
+            value = {"/delete/reserve"},
+            method = {RequestMethod.POST}
+    )
+    public String deleteReserve(@RequestParam(value = "reserveid",required = true) int reserve_id) {
+        try {
+            this.reserveService.deleteReserve(reserve_id);
+            return "删除预约成功";
+        } catch (Exception var3) {
+            return var3.getMessage();
+        }
+    }
+
+    @RequestMapping(
+            value = {"/query/reserve"},
+            method = {RequestMethod.GET}
+    )
+    public List<ReserveAndUserAndGymAndField> queryReserve() {
+        UserDetails userDetails = (UserDetails)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        String username = userDetails.getUsername();
+        List<ReserveAndUserAndGymAndField> reservelist = this.reserveService.queryReserveByUser(username);
+        return reservelist;
     }
 }

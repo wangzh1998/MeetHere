@@ -6,17 +6,17 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>体育场馆预约系统</title>
 	
-    <link rel="stylesheet" href="../css/login_style.css">
+    <link rel="stylesheet" href="css/login_style.css">
 	
 	
 </head>
 <body>
 
-    <div class="form" style="position:relative">
+    <div class="form"  style="position:relative">
 		<h1>Meet Here</h1>
 		<!--登录-->
         <div class="form_register" style="position:absolute">  
-            <form action="/login" method="post">
+            <form id="form1" action="/login/signIn" method="post">
                 <h2>登录</h2>
                 <div class="form_item">
                     <label for="username">用户名：</label>
@@ -28,14 +28,21 @@
                 </div>
                 
                 <div class="form_item">
-                    <input type="submit" value="登录" >
+                    <input type="submit" id="login" value="登录" onclick="" >
                 </div>
             </form>
+			
             
         </div>
 		
 	
         
     </div>
+	<script>
+			
+	</script>
+	<script src="js/login.js"></script>
+		<script type="text/javascript" src="http://127.0.0.1/CarAppStore/js/jquery/jquery-1.9.0.min.js"></script>	
+		<script type="text/javascript" src="http://127.0.0.1/CarAppStore/js/jquery/jquery-form.js"></script>
 </body>
 </html>

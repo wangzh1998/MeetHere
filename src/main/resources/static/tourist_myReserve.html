@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="en" class="no-js">
+	<head>
+		<meta charset="UTF-8" />
+		<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"> 
+		<meta name="viewport" content="width=device-width, initial-scale=1.0"> 
+		<title>游客—课程管理</title>
+		<meta name="description" content="A sidebar menu as seen on the Google Nexus 7 website" />
+		<meta name="keywords" content="google nexus 7 menu, css transitions, sidebar, side menu, slide out menu" />
+		<meta name="author" content="Codrops" />
+		<link rel="shortcut icon" href="../favicon.ico">
+		
+		<link rel="stylesheet" type="text/css" href="css/button.css" />
+		<link rel="stylesheet" type="text/css" href="css/normalize.css" />
+		<link rel="stylesheet" type="text/css" href="css/demo.css" />
+		<link rel="stylesheet" type="text/css" href="css/component.css" />
+		<script type="text/javascript" src="js/jquery.js"></script>
+		<script type="text/javascript" src="js/jquery.form.js"></script>
+		<script>
+			// $(function ())是文档document加载完自动调用的函数
+			$(function () {
+			    /*
+			     获取form元素，调用其ajaxForm(...)方法
+			     内部的function(data)的data就是后台返回的数据
+			    */
+			   $("#form1").ajaxForm(function (data) {
+			   		
+			   		var result = null;
+			   		result = JSON.stringify(data);
+			   		
+			   		var jsonlist = null;
+			   		jsonlist = JSON.parse(result);
+			   		var str = "";
+			   		$("#table-7 tr:not(:first)").empty();
+			   		for(var i = 0; i < jsonlist.length;i++){
+			   			
+			   			str += "<tr><td>"+jsonlist[i].reserveId+"</td><td>"+jsonlist[i].userName +
+			   			"</td><td>"+jsonlist[i].gymName+jsonlist[i].gymId+"</td><td>"+jsonlist[i].fieldName +jsonlist[i].fieldId+
+			   			"</td><td>"+jsonlist[i].date+"</td><td>"+jsonlist[i].startTime
+			   			"</td><td>"+jsonlist[i].endTime+"</td></tr>";
+			   			$("#table-7").append(str);
+			   		
+			   		}
+			   		
+			       }
+			   );
+			    $("#form3").ajaxForm(function AddCourse(data) {
+						alert(data);
+						
+			        }
+			    );
+				
+				$("#form4").ajaxForm(function DeleteCourse(data) {
+	
+						alert(data);
+					
+				    }
+				);
+			});
+		
+		</script>
+	</head>
+	<body>
+		<div class="container">
+			<ul id="gn-menu" class="gn-menu-main">
+				<li class="gn-trigger">
+					<a class="gn-icon gn-icon-menu"><span>Menu</span></a>
+					<nav class="gn-menu-wrapper">
+						<div class="gn-scroller">
+							<ul class="gn-menu">
+								
+								<li><a class="gn-icon gn-icon-article" onclick="toMyReserve()">我的预约</a></li>
+								
+								<li>
+									<a class="gn-icon gn-icon-article" onclick="toAnnounce()()">通知公告</a>
+								</li>
+							</ul>
+						</div><!-- /gn-scroller -->
+					</nav>
+				</li>
+				<li><a class="codrops-icon codrops-icon-drop" onclick="toMainPage()"><span>Meet Here</span></a></li>
+				<li><a class="codrops-icon codrops-icon-drop" href="#"><span>体育场馆预约系统</span></a></li>
+			</ul>
+			
+			<header>
+				<h1 id="h1" style="margin-left: 40%;" >My Reservation</h1>
+				
+				 <div style="background-color: gainsboro;width: 100%;height: 120px; ">
+				 
+				 <div style="display:inline-block;">
+					 <form id="form3" action="/user/add/reserve" enctype="multipart/form-data" method="post">
+				                
+					<label style="color: #000000;margin-left: 15px;" for="gymid">场馆编号：</label>
+											     <input style="width: 100px;" type="text" name="gymid" id="gymid" placeholder="如：1"  required>
+											 </div>
+											 <div style="display:inline-block;margin-left:10px;">
+											     <label style="color: #000000;" for="fieldid">场地编号：</label>
+											     <input style="width: 100px;" type="text" name="fieldid" id="fieldid" placeholder="如：2" required>
+											 </div>
+											 <div style="display:inline-block;margin-left:10px;">
+											     <label style="color: #000000;" for="date">预约日期：</label>
+											     <input style="width: 100px;" type="text" name="date" id="date" placeholder="如：2020-02-03" required>
+											 </div>
+											 <div style="display:inline-block;margin-left:10px;">
+											     <label style="color: #000000;" for="starttime">开始时间：</label>
+											     <input style="width: 100px;" type="text" name="starttime" id="starttime" placeholder="如：13:00" required>
+											 </div>
+											 <div style="display:inline-block;margin-left:10px;">
+											     <label style="color: #000000;" for="endtime">结束时间：</label>
+											     <input style="width: 100px;" type="text" name="endtime" id="endtime" placeholder="如：14:30" required>
+											 </div>
+											 
+											 <input type="submit" class="button black"  value="添加预约" style="margin-top: 3px;margin-left: 50px;"/>
+					</form>
+				 
+							<div style="display:inline-block;">
+				 					 <form id="form4" action="/user/delete/reserve" enctype="multipart/form-data" method="post">
+				                
+				 					<label style="color: #000000;margin-left: 15px;" for="courseid">课程编号：</label>
+				 											     <input style="width: 140px;" type="text" name="courseid" id="courseid" placeholder="如：3" required >
+				 											 </div>
+				 											 <input type="submit" class="button red"  value="删除预约" style="margin-top: 3px;margin-left: 60px;"/>
+				 					</form>
+									<div style="display:inline-block;margin-left: 300;"><form id="form1" action="/user/query/reserve" enctype="multipart/form-data" method="get">
+									                <td><input type="submit" class="button gray" name="submit" value="我的预约" style="margin-top: 3px;"/></td>
+									</form></div></div>
+									
+				 
+				 
+
+			</header> 
+			
+			
+			<table id="table-7" style="background-color:white;margin-left: 350px;">
+			<thead>
+			<th>预约编号</th>
+			<th>预约人姓名</th>
+			<th>场馆名称</th>
+			<th>场地名称</th>
+			<th>预约日期</th>
+			<th>开始时间</th>
+			<th>结束时间</th>
+			
+			</thead>
+			<tbody>
+			
+			</tbody>
+			</table>
+			
+		</div><!-- /container -->
+		<script src="js/classie.js"></script>
+		<script src="js/gnmenu.js"></script>
+		<script>
+			new gnMenu( document.getElementById( 'gn-menu' ) );
+			function toMainPage(){
+				window.location.href='tourist_main.html';
+			}
+			
+			function toMyReserve(){
+				window.location.href='tourist_myReserve.html';
+			}
+			
+			function toAnnounce(){
+				window.location.href='tourist_announce.html';
+			}
+		</script>
+		
+	</body>
+</html>
