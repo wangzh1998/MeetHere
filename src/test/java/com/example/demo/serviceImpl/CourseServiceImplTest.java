@@ -63,6 +63,7 @@ class CourseServiceImplTest {
         course.setTeacherName("钟晖");
     }
 
+    //路径1
     @Test
     void addCourse_user_null_test() {
         when(userDao.findUserAndRoleByUserName(course.getTeacherName())).thenReturn(null);
@@ -74,6 +75,7 @@ class CourseServiceImplTest {
         }
     }
 
+    //路径2
     @Test
     void addCourse_user_not_null_cruid_error_test() {
         UserAndRole user = new UserAndRole();
@@ -92,6 +94,50 @@ class CourseServiceImplTest {
             assertThat(ex.getMessage(),containsString("数据库异常"));
         }
     }
+
+    //路径3
+    @Test
+    void addCourse_user_not_null_cruid_right_save_error_test() {
+        UserAndRole user = new UserAndRole();
+        user.setName("钟晖");
+        user.setPassword("123456");
+        user.setUserName("钟晖");
+        user.setRoleName("ROLE_TEACHER");
+        user.setRoleId(2);
+        user.setUserId(1);
+        when(userDao.findUserAndRoleByUserName(course.getTeacherName())).thenReturn(user);
+        when(courseDao.queryCurId()).thenReturn(1);
+        when(courseDao.save(course)).thenReturn(null);
+        try {
+            courseService.addCourse(course);
+            fail("expected Exception for 数据库异常");
+        } catch (Exception ex) {
+            assertThat(ex.getMessage(),containsString("数据库异常"));
+        }
+    }
+
+    //路径4
+    @Test
+    void addCourse_user_not_null_cruid_right_save_right_save_error_test() {
+        UserAndRole user = new UserAndRole();
+        user.setName("钟晖");
+        user.setPassword("123456");
+        user.setUserName("钟晖");
+        user.setRoleName("ROLE_TEACHER");
+        user.setRoleId(2);
+        user.setUserId(1);
+        when(userDao.findUserAndRoleByUserName(course.getTeacherName())).thenReturn(user);
+        when(courseDao.queryCurId()).thenReturn(1);
+        when(courseDao.save(course)).thenReturn(course);
+        when(teachDao.save(any())).thenReturn(null);
+        try {
+            courseService.addCourse(course);
+            fail("expected Exception for 数据库异常");
+        } catch (Exception ex) {
+            assertThat(ex.getMessage(),containsString("数据库异常"));
+        }
+    }
+
 
     @Test
     void queryCourseByTeacher() {
@@ -127,8 +173,67 @@ class CourseServiceImplTest {
         verify(courseDao,times(1)).queryCourseByStudent(user.getUserId());
     }
 
+    //路径2
     @Test
-    void deleteCourseByTeacher() {
+    void deleteCourseByTeacher_id_not_equal() {
+        UserAndRole user = new UserAndRole();
+        user.setName("钟晖");
+        user.setPassword("123456");
+        user.setUserName("钟晖");
+        user.setRoleName("ROLE_TEACHER");
+        user.setRoleId(2);
+        user.setUserId(1);
+        when(userDao.findUserAndRoleByUserName("钟晖")).thenReturn(user);
+        when(teachDao.findUserIdByCourseId(2)).thenReturn(2);
+        try {
+            courseService.deleteCourseByTeacher("钟晖",2);
+            fail("expected Exception for 没有删除权限");
+        } catch (Exception ex) {
+            assertThat(ex.getMessage(),containsString("没有删除权限"));
+        }
+    }
+
+    //路径3
+    @Test
+    void deleteCourseByTeacher_id_equal_take_error() {
+        UserAndRole user = new UserAndRole();
+        user.setName("钟晖");
+        user.setPassword("123456");
+        user.setUserName("钟晖");
+        user.setRoleName("ROLE_TEACHER");
+        user.setRoleId(2);
+        user.setUserId(1);
+        when(userDao.findUserAndRoleByUserName("钟晖")).thenReturn(user);
+        when(teachDao.findUserIdByCourseId(2)).thenReturn(1);
+        when(takeDao.deleteByCourseId(2)).thenReturn(-1);
+        try {
+            courseService.deleteCourseByTeacher("钟晖",2);
+            fail("expected Exception for 数据库异常");
+        } catch (Exception ex) {
+            assertThat(ex.getMessage(),containsString("数据库异常"));
+        }
+    }
+
+    //路径4
+    @Test
+    void deleteCourseByTeacher_id_equal_take_right_teach_error() {
+        UserAndRole user = new UserAndRole();
+        user.setName("钟晖");
+        user.setPassword("123456");
+        user.setUserName("钟晖");
+        user.setRoleName("ROLE_TEACHER");
+        user.setRoleId(2);
+        user.setUserId(1);
+        when(userDao.findUserAndRoleByUserName("钟晖")).thenReturn(user);
+        when(teachDao.findUserIdByCourseId(2)).thenReturn(1);
+        when(takeDao.deleteByCourseId(2)).thenReturn(0);
+        when(teachDao.deleteByCourseId(2)).thenReturn(0);
+        try {
+            courseService.deleteCourseByTeacher("钟晖",2);
+            fail("expected Exception for 数据库异常");
+        } catch (Exception ex) {
+            assertThat(ex.getMessage(),containsString("数据库异常"));
+        }
     }
 
     @Test
@@ -159,6 +264,21 @@ class CourseServiceImplTest {
     }
 
     @Test
-    void takeCourse() {
+    void takeCourse_user_not_null_t_error() {
+        UserAndRole user = new UserAndRole();
+        user.setName("张诗晨");
+        user.setPassword("123456");
+        user.setUserName("张诗晨");
+        user.setRoleName("ROLE_STUDENT");
+        user.setRoleId(3);
+        user.setUserId(5);
+        when(userDao.findUserAndRoleByUserName("张诗晨")).thenReturn(user);
+        when(takeDao.save(any())).thenReturn(null);
+        try {
+            courseService.takeCourse("张诗晨",1);
+            fail("expected Exception for 数据库异常");
+        } catch (Exception ex) {
+            assertThat(ex.getMessage(),containsString("数据库异常"));
+        }
     }
 }

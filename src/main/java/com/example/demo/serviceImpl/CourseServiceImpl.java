@@ -83,7 +83,7 @@ public class CourseServiceImpl implements CourseService {
             } else {
                 //int t = this.takesDao.deleteTakesByTeacher(course_id);
                 int t = this.takeDao.deleteByCourseId(course_id);
-                if (t <= 0) {
+                if (t < 0) {
                     throw new Exception("数据库异常");
                 } else {
                     t = this.teachDao.deleteByCourseId(course_id);
