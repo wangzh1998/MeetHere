@@ -60,15 +60,6 @@
 					<nav class="gn-menu-wrapper">
 						<div class="gn-scroller">
 							<ul class="gn-menu">
-								
-								<li>
-									<a class="gn-icon gn-icon-article" onclick="toMyCourse()">我的课程</a>
-								</li>
-								<li><a class="gn-icon gn-icon-cog" onclick="toQueryCourse()">课程管理</a></li>
-								
-								<li>
-									<a class="gn-icon gn-icon-cog" onclick="toReserveField()">预约场馆</a>
-								</li>
 								<li>
 									<a class="gn-icon gn-icon-article" onclick="toAnnounce()()">通知公告</a>
 								</li>
@@ -89,24 +80,24 @@
 					 <form id="form3" action="/admin/add/announce" enctype="multipart/form-data" method="post">
 				                
 					<label style="color: #000000;margin-left: 15px;" for="time">发布时间：</label>
-											     <input style="width: 140px;" type="text" name="time" id="time" placeholder="如： 2019-12-22 8:00" required >
+											     <input style="width: 180px;" type="text" name="time" id="time" placeholder="如： 2019-12-22 8:00" required >
 											 </div>
 											 <div style="display:inline-block;margin-left:10px;">
 											     <label style="color: #000000;" for="content">公告内容：</label>
-											     <input style="width: 100px;" type="text" name="content" id="content" placeholder="如：第17周周一钟晖乒乓球课本周停课 " required>
+											     <input style="width: 280px;" type="text" name="content" id="content" placeholder="如：第17周周一钟晖乒乓球课本周停课 " required>
 											 </div>
 											 
 											 <input type="submit" class="button black"  value="添加公告" style="margin-top: 3px;margin-left: 50px;"/>
 					</form>
 				 
 							
-									<div style="display:inline-block;margin-left: 200;"><form id="form5" action="/user/query/course" enctype="multipart/form-data" method="get">
+									<div style="display:inline-block;margin-left: 200;"><form id="form5" action="/user/query/announce" enctype="multipart/form-data" method="get">
 									                <td><input type="submit" class="button gray" name="submit" value="通知公告" style="margin-top: 3px;"/></td>
 									</form></div></div>
 			</header> 
 			
 			
-			<table id="table-7" style="background-color:white;margin-left: 350px;">
+			<table id="table-7" style="background-color:white;margin-left: 450px;">
 			<thead>
 			<th>通知编号</th>
 			<th>发布时间</th>
@@ -125,19 +116,11 @@
 		<script>
 			new gnMenu( document.getElementById( 'gn-menu' ) );
 			function toMainPage(){
-				window.location.href='student_main.html';
+				window.location.href='admin_main.html';
 			}
-			function toMyCourse(){
-				window.location.href='student_myCourse.html';
-			}
-			function toQueryCourse(){
-				window.location.href='student_queryCourse.html';
-			}
-			function toReserveField(){
-				window.location.href='student_myReserve.html';
-			}
+			
 			function toAnnounce(){
-				window.location.href='student_announce.html';
+				window.location.href='admin_announce.html';
 			}
 		</script>
 		

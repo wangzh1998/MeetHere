@@ -4,7 +4,7 @@
 	<meta charset="UTF-8" />
 	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<title>学生—预约场馆</title>
+	<title>教师—课程管理</title>
 	<meta name="description" content="A sidebar menu as seen on the Google Nexus 7 website" />
 	<meta name="keywords" content="google nexus 7 menu, css transitions, sidebar, side menu, slide out menu" />
 	<meta name="author" content="Codrops" />
@@ -51,7 +51,9 @@
 			);
 
 			$("#form4").ajaxForm(function DeleteCourse(data) {
+
 						alert(data);
+
 					}
 			);
 		});
@@ -67,9 +69,7 @@
 				<div class="gn-scroller">
 					<ul class="gn-menu">
 
-						<li>
-							<a class="gn-icon gn-icon-article" onclick="toMyCourse()">我的课程</a>
-						</li>
+
 						<li><a class="gn-icon gn-icon-cog" onclick="toQueryCourse()">课程管理</a></li>
 
 						<li>
@@ -157,19 +157,16 @@
 <script>
 	new gnMenu( document.getElementById( 'gn-menu' ) );
 	function toMainPage(){
-		window.location.href='student_main.html';
+		window.location.href='teacher_main.html';
 	}
 	function toMyCourse(){
-		window.location.href='student_myCourse.html';
+		window.location.href='teacher_myReserve.html';
 	}
 	function toQueryCourse(){
-		window.location.href='student_queryCourse.html';
-	}
-	function toReserveField(){
-		window.location.href='student_myReserve.html';
+		window.location.href='teacher_queryCourse.html';
 	}
 	function toAnnounce(){
-		window.location.href='student_announce.html';
+		window.location.href='teacher_announce.html';
 	}
 </script>
 
