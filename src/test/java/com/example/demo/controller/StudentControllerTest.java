@@ -76,7 +76,6 @@ class StudentControllerTest {
         mockMvc.perform(post("/student/add/course")
                 .param("courseid",String.valueOf(1)))
                 .andExpect(status().isOk());
-        //函数的两个参数可以一个用匹配器any()，一个用具体数字吗？
         verify(courseService, times(1)).takeCourse(any(),anyInt());
     }
     @Test

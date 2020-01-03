@@ -26,7 +26,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @AutoConfigureMockMvc
 class ConfigControllerTest {
 
-   /* @Autowired
+    @Autowired
     MockMvc mockMvc;
     @MockBean
     BCryptPasswordEncoder bCryptPasswordEncoder;
@@ -38,19 +38,6 @@ class ConfigControllerTest {
 
     }
 
-    @Test
-    @WithMockUser(username="admin",roles={"TEACHER"})
-    void return0() throws Exception{
-        mockMvc.perform(post("/login/return0"))
-                .andExpect(status().isOk());
-    }
-
-    @Test
-    @WithMockUser(username="admin",roles={"TEACHER"})
-    void return1() throws Exception{
-        mockMvc.perform(post("/login/return1"))
-                .andExpect(status().isOk());
-    }
 
     @Test
     @WithMockUser(username="admin",roles={"TEACHER"})
@@ -59,16 +46,5 @@ class ConfigControllerTest {
                 .andExpect(status().isOk());
     }
 
-    @Test
-    @WithMockUser(username="admin",roles={"TEACHER"})
-    void signOut() throws Exception{
-        mockMvc.perform(post("/login/signOut"))
-                .andExpect(status().isOk());
-    }
 
-    @Test
-    void getPassword() throws Exception{
-        mockMvc.perform(post("/login/getPassword"))
-                .andExpect(status().isOk());
-    }*/
 }
