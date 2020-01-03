@@ -49,41 +49,6 @@ class CourseDaoTest {
         dataSupplier.loadReserve(entityManager);
         dataSupplier.loadUser(entityManager);
         dataSupplier.loadField(entityManager);
-        /*DataSupplier.loadRole(entityManager);
-        DataSupplier.loadUser(entityManager);
-        DataSupplier.loadGym(entityManager);
-        DataSupplier.loadField(entityManager);
-        DataSupplier.loadCourse(entityManager);
-        DataSupplier.loadTeach(entityManager);
-        DataSupplier.loadTake(entityManager);
-        DataSupplier.loadReserve(entityManager);
-        DataSupplier.loadAnnounce(entityManager);*/
-        /*Gym gym_1 = new Gym("中北大学生活动中心羽毛球馆", "08:00", "22:00");
-        Gym gym_2 = new Gym("中北体育馆羽毛球馆", "07:00", "22:00");
-        gym_1.setGymId(1);
-        gym_2.setGymId(2);
-        entityManager.persist(gym_1);
-        entityManager.persist(gym_2);
-        Course course_pingpong = new Course("乒乓球", "周一", "10:00", "11:30", 1, "钟晖");
-        Course course_basketball = new Course("篮球", "周二", "08:00", "09:30", 1, "阎健");
-        Course course_volleyball_1 = new Course("排球", "周二", "08:00", "09:30", 2, "潘国平");
-        Course course_volleyball_2 = new Course("排球", "周五", "10:00", "11:30", 2, "阎健");
-        course_pingpong.setCourseId(1);
-        course_basketball.setCourseId(2);
-        course_volleyball_1.setCourseId(3);
-        course_volleyball_2.setCourseId(4);
-        entityManager.persist(course_basketball);
-        entityManager.persist(course_pingpong);
-        entityManager.persist(course_volleyball_1);
-        entityManager.persist(course_volleyball_2);
-        Teach teach_1 = new Teach(1, 1);
-        Teach teach_2 = new Teach(2, 2);
-        Teach teach_3 = new Teach(3, 3);
-        Teach teach_4 = new Teach(2, 4);
-        entityManager.persist(teach_1);
-        entityManager.persist(teach_2);
-        entityManager.persist(teach_3);
-        entityManager.persist(teach_4);*/
     }
 
     @AfterEach

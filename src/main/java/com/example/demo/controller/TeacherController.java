@@ -1,6 +1,5 @@
 package com.example.demo.controller;
 
-import com.example.demo.entity.Announce;
 import com.example.demo.entity.Course;
 import com.example.demo.entity.Gym;
 import com.example.demo.service.CourseService;
@@ -9,12 +8,13 @@ import java.util.List;
 
 import com.example.demo.vo.CourseAndGym;
 import org.springframework.beans.factory.annotation.Autowired;
-
 import org.springframework.context.annotation.EnableAspectJAutoProxy;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
 
 /*
 这里addCourse里面的gymname参数是无效的，删除
@@ -27,8 +27,6 @@ public class TeacherController {
     CourseService courseService;
     @Autowired
     GymService gymService;
-    @Autowired
-    TeacherController announceService;
 
     public TeacherController() {
     }
@@ -43,7 +41,7 @@ public class TeacherController {
                             @RequestParam(value = "starttime",required = true) String startTime,
                             @RequestParam(value = "endtime",required = true) String endTime,
                             @RequestParam(value = "gymid",required = true) int gymId
-                            ) {
+    ) {
         UserDetails userDetails = (UserDetails)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         String username = userDetails.getUsername();
         Course course = new Course();
@@ -57,7 +55,6 @@ public class TeacherController {
 
         try {
             this.courseService.addCourse(course);
-            System.out.println("添加课程成功");
             return "添加课程成功";
         } catch (Exception var11) {
             return var11.getMessage();
@@ -84,21 +81,11 @@ public class TeacherController {
             value = {"/query/course"},
             method = {RequestMethod.GET}
     )
-
     public List<CourseAndGym> queryCourse() {
         UserDetails userDetails = (UserDetails)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         String username = userDetails.getUsername();
         List<CourseAndGym> courselist = this.courseService.queryCourseByTeacher(username);
-        System.out.println("/query/course");
-        return courselist;
-    }
-
-    @RequestMapping(
-            value = {"/query/allcourse"},
-            method = {RequestMethod.GET}
-    )
-    public List<CourseAndGym> queryAllCourse() {
-        List<CourseAndGym> courselist = this.courseService.queryAllCourse();
+        System.out.println("/teacher/query/course");
         return courselist;
     }
 
@@ -111,6 +98,4 @@ public class TeacherController {
                                        @RequestParam(value = "endtime",required = true) String endtime) {
         return this.gymService.queryAvailableGym(weekday, starttime, endtime);
     }
-
-
 }

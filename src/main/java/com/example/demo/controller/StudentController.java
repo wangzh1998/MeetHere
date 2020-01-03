@@ -87,59 +87,5 @@ public class StudentController {
         }
     }
 
-    @RequestMapping(
-            value = {"/add/reserve"},
-            method = {RequestMethod.POST}
-    )
-    public String addReserve(@RequestParam(value = "gymname",required = false) String gymName,
-                             @RequestParam(value = "gymid",required = true) int gymId,
-                             @RequestParam(value = "fieldname",required = false) String fieldName,
-                             @RequestParam(value = "fieldid",required = true) int fieldId,
-                             @RequestParam(value = "date",required = true) String date,
-                             @RequestParam(value = "starttime",required = true) String startTime,
-                             @RequestParam(value = "endtime",required = true) String endTime) {
-        UserDetails userDetails = (UserDetails)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-        String username = userDetails.getUsername();
-        // Reserve reserve = new Reserve();
-        ReserveAndUserAndGymAndField reserve = new ReserveAndUserAndGymAndField();
-        reserve.setGymName(gymName);
-        reserve.setGymId(gymId);
-        reserve.setFieldName(fieldName);
-        reserve.setFieldId(fieldId);
-        reserve.setDate(date);
-        reserve.setStartTime(startTime);
-        reserve.setEndTime(endTime);
-        reserve.setUserName(username);
 
-        try {
-            this.reserveService.addReserve(reserve);
-            return "预约成功";
-        } catch (Exception var12) {
-            return var12.getMessage();
-        }
-    }
-
-    @RequestMapping(
-            value = {"/delete/reserve"},
-            method = {RequestMethod.POST}
-    )
-    public String deleteReserve(@RequestParam(value = "reserveid",required = true) int reserve_id) {
-        try {
-            this.reserveService.deleteReserve(reserve_id);
-            return "删除预约成功";
-        } catch (Exception var3) {
-            return var3.getMessage();
-        }
-    }
-
-    @RequestMapping(
-            value = {"/query/reserve"},
-            method = {RequestMethod.GET}
-    )
-    public List<ReserveAndUserAndGymAndField> queryReserve() {
-        UserDetails userDetails = (UserDetails)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-        String username = userDetails.getUsername();
-        List<ReserveAndUserAndGymAndField> reservelist = this.reserveService.queryReserveByUser(username);
-        return reservelist;
-    }
 }

@@ -173,6 +173,18 @@ class CourseServiceImplTest {
         verify(courseDao,times(1)).queryCourseByStudent(user.getUserId());
     }
 
+    //路径1
+    @Test
+    void deleteCourseByTeacher_user_null_test() {
+        when(userDao.findUserAndRoleByUserName(anyString())).thenReturn(null);
+        try {
+            courseService.deleteCourseByTeacher("钟晖",2);
+            fail("expected Exception for 用户不存在");
+        } catch (Exception ex) {
+            assertThat(ex.getMessage(),containsString("用户不存在"));
+        }
+    }
+
     //路径2
     @Test
     void deleteCourseByTeacher_id_not_equal() {

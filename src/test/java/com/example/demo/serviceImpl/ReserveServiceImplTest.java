@@ -80,7 +80,9 @@ class ReserveServiceImplTest {
 
 
     @Test
-    void deleteReserve_delete_test() {
+    void deleteReserve_delete_test() throws Exception {
+        reserveService.deleteReserve(1);
+        verify(reserveDao,times(1)).deleteById(1);
     }
 
     @Test
