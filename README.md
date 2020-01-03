@@ -9,7 +9,7 @@
 #### source meeHereData.sql
 ### 第二次运行前，将application.yml中的jpa:hibernate:ddl-auto后面的create修改为update.
 
-# 接口测试:登陆url示例：http://localhost:8080/login/signIn?username=钟晖&password=123456
+# 接口测试:登陆url示例：http://localhost:8080/login/signIn?username=钟晖&password=123456 （必须是POST请求）
 # 正常登陆：http://localhost:8080 
 ## 示例用户：
 ### 老师：钟晖 123456
