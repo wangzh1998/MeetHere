@@ -1,4 +1,4 @@
-insert into role values
+insert into role values 
 	(1,"ROLE_ADMIN"),(2,"ROLE_STUDENT"),
 	(3,"ROLE_TEACHER"),(4,"ROLE_TOURIST");
 
@@ -13,14 +13,14 @@ insert into user(user_id,user_name,password,role_id,name) values
 	(8,"张若昀","$2a$10$oO2XQxOW2cgHEm2XGB.hsuCnjU9yblQ7ioiqNsoeZZ5GdnMWr.Zki",1,"Allen"),
 	(9,"唐艺昕","$2a$10$oO2XQxOW2cgHEm2XGB.hsuCnjU9yblQ7ioiqNsoeZZ5GdnMWr.Zki",4,"Juicy");
 
-insert into gym (gym_id,gym_name,start_time,end_time)values
+insert into gym (gym_id,gym_name,start_time,end_time)values 
 	(1,"中北大学生活动中心羽毛球馆 ","08:00","22:00"),
 	(2,"中北体育馆羽毛球馆","07:00","22:00");
-insert into field(gym_id,field_id,field_name) values
+insert into field(gym_id,field_id,field_name) values 
 	(1,1,"1号场地"),(1,2,"2号场地"),(1,3,"3号场地"),
 	(1,4,"4号场地"),(1,5,"5号场地"),(1,6,"6号场地"),
 	(1,7, "7号场地"),(1,8,"8号场地");
-insert into field(gym_id,field_id,field_name) values
+insert into field(gym_id,field_id,field_name) values 
 	(2,1,"1号场地"),(2,2,"2号场地"),(2,3,"3号场地"),
 	(2,4,"4号场地"),(2,5,"5号场地"),(2,6,"6号场地"),
 	(2,7, "7号场地"),(2,8,"8号场地"),(2,9,"9号场地"),
@@ -53,3 +53,4 @@ insert into announce(announce_id,content,time) values
 
 
 
+  
